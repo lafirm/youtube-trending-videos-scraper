@@ -5,7 +5,7 @@ name: Auto Scraper
 
 on:
   schedule:
-    - cron: "*/1 * * * *"   # Triggers the workflow every 2 minutes
+    - cron: "*/1 * * * *"   # Triggers the workflow every 1 minute
 
 permissions:
   contents: read
