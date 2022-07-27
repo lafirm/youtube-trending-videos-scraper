@@ -29,8 +29,12 @@ def get_driver():
     """
     chrome_options = Options()  #creating an instance of Options() class
     #pass the browser location to selenium, otherwise it throws error
-    chrome_options.binary_location = "/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe"
+    try:
+        chrome_options.binary_location = "/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe"
+    except:
+        chrome_options.binary_location = "/usr/bin/google-chrome"
     chrome_options.add_argument("--headless")      #to not display the browser window
+    chrome_options.add_argument("--remote-debugging-port=9222")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
     return driver
 
