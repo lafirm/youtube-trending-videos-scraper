@@ -20,6 +20,11 @@ from  datetime import date  #to get current date
 
 YOUTUBE_TRENDING_URL = "https://www.youtube.com/feed/trending?persist_gl=1&gl=US"  #for location -> USA
 
+GITHUB_ACTIONS = True
+
+LOCAL_MACHINE = not GITHUB_ACTIONS
+
+
 
 def get_driver():
     """
@@ -29,10 +34,13 @@ def get_driver():
     """
     chrome_options = Options()  #creating an instance of Options() class
     #pass the browser location to selenium, otherwise it throws error
-    #chrome_options.binary_location = "/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe"
-    chrome_options.binary_location = "/usr/bin/google-chrome"
+    if GITHUB_ACTIONS:
+        chrome_options.binary_location = "/usr/bin/google-chrome"
+        chrome_options.add_argument("--remote-debugging-port=9222")
+    elif LOCAL_MACHINE:
+        chrome_options.binary_location = "/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe"
+
     chrome_options.add_argument("--headless")      #to not display the browser window
-    chrome_options.add_argument("--remote-debugging-port=9222")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
     return driver
 
@@ -44,6 +52,8 @@ def get_video_divs(driver):
     """
     #companies can define their own tags in html, "ytd-video-renderer" is a tag developed by youtube
     driver.get(YOUTUBE_TRENDING_URL)
+    # set implicit wait time
+    driver.implicitly_wait(10)  # seconds
     video_div_tag = "ytd-video-renderer"
     video_divs = driver.find_elements(By.TAG_NAME, value=video_div_tag)
     return video_divs
@@ -131,12 +141,13 @@ if __name__ == '__main__':     #to run this code only if it's executed as a pyth
 
     videos_df = pd.DataFrame(top_10_videos_data)
     #print(videos_df)
-    videos_df.to_csv('trending_videos.csv', index=None)
+    date_code = str(date.today().strftime("%d%m%Y"))
+    videos_df.to_csv('data/trending_videos_'+date_code+'.csv', index=None)
     print('CSV created')
 
     print('Sending Email')
     # body = json.dumps(top_10_videos_data, indent=2)
-    send_email(csv_name='trending_videos.csv')
+    send_email(csv_name='data/trending_videos_'+date_code+'.csv')
     print('Email Sent')
 
     driver.close()
