@@ -1,11 +1,11 @@
 name: Auto Scraper
 
-#on:
-#  workflow_dispatch     #to control the trigger manually
+on:
+  workflow_dispatch     #to control the trigger manually
 
 on:
   schedule:
-    - cron: "18 1 * * 0-6"   # At 01:18 on every day-of-week from Sunday through Saturday.
+    - cron: "18 10 * * 0-6"   # At 10:18 on every day-of-week from Sunday through Saturday.
 
 permissions:
   contents: read
