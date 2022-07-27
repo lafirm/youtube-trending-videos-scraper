@@ -1,7 +1,11 @@
 name: Auto Scraper
 
+#on:
+#  workflow_dispatch     #to control the trigger manually
+
 on:
-  workflow_dispatch
+  schedule:
+    - cron: "*/3 * * * *"   # Triggers the workflow every 3 minutes
 
 permissions:
   contents: read
