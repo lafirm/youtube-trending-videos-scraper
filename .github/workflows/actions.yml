@@ -1,0 +1,41 @@
+name: Execute YouTube Scraper Project
+on:
+  workflow_dispatch:
+
+jobs:
+  install-python:     # python installtion
+    runs-on: ubuntu-latest      # should run on linux based operating system
+
+    steps:
+      - name: Checkout repo content
+        uses: actions/checkout@v2     # checkout the repository content to github runner
+
+      - name: Install python version
+        uses: gabrielfalcao/pyenv-action@v7     # use the pyenv-action version 7
+        with:
+          default: 3.10.5 # pick 3.10.5 verion
+          command: pip install -U pip  # upgrade pip after installing python
+
+      - name: Create environment
+        run: pyenv local 3.10.5 && python -mvenv .venv3105
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt --upgrade pip
+
+      - name: Install chromium browser
+        uses: browser-actions/setup-chrome@latest
+        run: chrome --version
+
+      - name: Setup pyenv
+        id: pyenv_installation
+        uses: "gabrielfalcao/pyenv-action@v7"
+
+      - name: Debug pyenv
+        run: echo ${{ steps.pyenv_installation.outputs.pyenv_root }}
+
+      - name: Execute scraper.py # run scraper.py
+        env:
+          EMAIL_ID: ${{ secrets.EMAIL_ID }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+        run: python scraper.py
+
