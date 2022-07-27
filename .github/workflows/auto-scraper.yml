@@ -4,9 +4,8 @@ name: Auto Scraper
 #  workflow_dispatch     #to control the trigger manually
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: "*/2 * * * *"   # Triggers the workflow every 2 minutes
+    - cron: "*/1 * * * *"   # Triggers the workflow every 2 minutes
 
 permissions:
   contents: read
