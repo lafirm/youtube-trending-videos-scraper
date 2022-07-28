@@ -4,20 +4,20 @@
 #pip install python-dotenv
 import time
 
-from selenium import webdriver
+from selenium import webdriver    #to instantiate webdriver
 from selenium.webdriver.chrome.service import Service  #to install chrome driver
 from webdriver_manager.chrome import ChromeDriverManager  #to install chrome driver
 from selenium.webdriver.chrome.options import Options  #to add options while creating driver object
 from selenium.webdriver.common.by import By  #to use By parameter in find_elements method
 import pandas as pd   #to work with dataframe and CSVs
 import smtplib    #to create smtp client server object
-from email.message import EmailMessage       #to create emails
+from email.message import EmailMessage   #to format our email message
 import ssl   #to encrypt our email message
 from dotenv import load_dotenv    #to load env vars
 import os   #to fetch env vars
 import json  #to create JSON
 from  datetime import date  #to get current date
-import time
+import time     #for time.sleep
 
 
 YOUTUBE_TRENDING_URL = "https://www.youtube.com/feed/trending?persist_gl=1&gl=US"  #for location -> USA

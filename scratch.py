@@ -22,7 +22,7 @@ video_divs = doc.find_all('div', class_='ytd-video-renderer')
 
 print(f'Found {len(video_divs)} videos')
 
-"""We need selenium, chromedriver and browser altogether to do the job, but replit has it pre-installed"""
+"""We need selenium, chromedriver and browser altogether to do the job, so let's move to scraper.py"""
 
 
 
