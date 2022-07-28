@@ -1,6 +1,8 @@
 
-trending_videos.csv
+data
+*.csv
 .env
+*.env
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

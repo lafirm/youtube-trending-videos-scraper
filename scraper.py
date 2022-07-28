@@ -2,6 +2,7 @@
 #pip install webdriver_manager
 #pip install pandas
 #pip install python-dotenv
+import time
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service  #to install chrome driver
@@ -16,6 +17,7 @@ from dotenv import load_dotenv    #to load env vars
 import os   #to fetch env vars
 import json  #to create JSON
 from  datetime import date  #to get current date
+import time
 
 
 YOUTUBE_TRENDING_URL = "https://www.youtube.com/feed/trending?persist_gl=1&gl=US"  #for location -> USA
@@ -64,7 +66,6 @@ lambda_options = [
     '--use-gl=swiftshader',
     '--use-mock-keychain',
     '--single-process',
-    '--headless',
 ]
 
 def get_driver():
@@ -82,9 +83,14 @@ def get_driver():
         chrome_options.binary_location = "/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe"
 
     chrome_options.add_argument("--headless")      #to not display the browser window
+
     for argument in lambda_options:
         chrome_options.add_argument(argument)
+
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+    driver.maximize_window()
+    # set implicit wait time
+    driver.implicitly_wait(30)  # seconds
     return driver
 
 def get_video_divs(driver):
@@ -94,11 +100,18 @@ def get_video_divs(driver):
     returns a list of video div.
     """
     #companies can define their own tags in html, "ytd-video-renderer" is a tag developed by youtube
-    driver.get(YOUTUBE_TRENDING_URL)
-    # set implicit wait time
-    driver.implicitly_wait(10)  # seconds
     video_div_tag = "ytd-video-renderer"
-    video_divs = driver.find_elements(By.TAG_NAME, value=video_div_tag)
+    video_divs = []
+    count = 0
+    while len(video_divs) <= 10:
+        driver.get(YOUTUBE_TRENDING_URL)
+        time.sleep(30)
+        count += 1
+        video_divs = driver.find_elements(By.TAG_NAME, value=video_div_tag)
+        if count==10:
+            print('Completed 10 loops!')
+            break
+
     return video_divs
 
 def parse_video_div(video_div):
