@@ -1,9 +1,9 @@
 # YouTube Trending Videos Scraper
-Scrape top 10 trending videos on YouTube using **Selenium** and Automate the process using **Github Actions with CRON.**
+Scrape top 10 trending videos on YouTube using [**Selenium**](https://selenium-python.readthedocs.io/) and Automate the process using [**Github Actions**](https://docs.github.com/en/actions) with CRON.
 
-
-Initially, we tried to scrape contents using **BeautifulSoup4** but it was not successful, since the page's dynamic.
-We have to use **Selenium** to scrape.
+## Project Outline
+Initially, we tried to scrape the contents of trending YouTube video using [**BeautifulSoup4**](https://beautiful-soup-4.readthedocs.io/en/latest/) but it was not successful, since [YouTube's Trending page](https://www.youtube.com/feed/trending?persist_gl=1&gl=US) is dynamic.
+We have to use [**Selenium**](https://selenium-python.readthedocs.io/) to scrape.
 
 
 
