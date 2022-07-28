@@ -59,16 +59,9 @@ https://github.com/lafirm/youtube-trending-videos-scraper/blob/31fe5633cabb462d7
 
 ### Execute python script
 
-#### Use env variables
-
+  - Use env variables
 
 ### commit and push changes
 
 
-
-
-
-
-
-Readme will be updated soon.
-
+---
