@@ -25,6 +25,47 @@ GITHUB_ACTIONS = True
 LOCAL_MACHINE = not GITHUB_ACTIONS
 
 
+lambda_options = [
+    '--autoplay-policy=user-gesture-required',
+    '--disable-background-networking',
+    '--disable-background-timer-throttling',
+    '--disable-backgrounding-occluded-windows',
+    '--disable-breakpad',
+    '--disable-client-side-phishing-detection',
+    '--disable-component-update',
+    '--disable-default-apps',
+    '--disable-dev-shm-usage',
+    '--disable-domain-reliability',
+    '--disable-extensions',
+    '--disable-features=AudioServiceOutOfProcess',
+    '--disable-hang-monitor',
+    '--disable-ipc-flooding-protection',
+    '--disable-notifications',
+    '--disable-offer-store-unmasked-wallet-cards',
+    '--disable-popup-blocking',
+    '--disable-print-preview',
+    '--disable-prompt-on-repost',
+    '--disable-renderer-backgrounding',
+    '--disable-setuid-sandbox',
+    '--disable-speech-api',
+    '--disable-sync',
+    '--disk-cache-size=33554432',
+    '--hide-scrollbars',
+    '--ignore-gpu-blacklist',
+    '--ignore-certificate-errors',
+    '--metrics-recording-only',
+    '--mute-audio',
+    '--no-default-browser-check',
+    '--no-first-run',
+    '--no-pings',
+    '--no-sandbox',
+    '--no-zygote',
+    '--password-store=basic',
+    '--use-gl=swiftshader',
+    '--use-mock-keychain',
+    '--single-process',
+    '--headless',
+]
 
 def get_driver():
     """
@@ -41,6 +82,8 @@ def get_driver():
         chrome_options.binary_location = "/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe"
 
     chrome_options.add_argument("--headless")      #to not display the browser window
+    for argument in lambda_options:
+        chrome_options.add_argument(argument)
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
     return driver
 
@@ -53,7 +96,7 @@ def get_video_divs(driver):
     #companies can define their own tags in html, "ytd-video-renderer" is a tag developed by youtube
     driver.get(YOUTUBE_TRENDING_URL)
     # set implicit wait time
-    driver.implicitly_wait(60)  # seconds
+    driver.implicitly_wait(10)  # seconds
     video_div_tag = "ytd-video-renderer"
     video_divs = driver.find_elements(By.TAG_NAME, value=video_div_tag)
     return video_divs
