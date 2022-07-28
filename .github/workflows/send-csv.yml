@@ -1,4 +1,4 @@
-name: Auto Scraper
+name: Send CSV
 
 #on:
 #  workflow_dispatch     #to control the trigger only manually
