@@ -20,7 +20,13 @@ In this section, we did the following:
   - Share the CSV file via email using `smtplib` library
 
 ## Scrape
+Install the required libraries by running the following command,
 
+`pip install requirements.txt`
+
+Then import the libraries.
+
+`get_driver()` function is used to create an instance of selenium webdriver which accepts the path for chromium browser and installs chromedriver using this method `Service(ChromeDriverManager().install())`.
 
 ## Store
 
@@ -36,33 +42,13 @@ To automate our Python script using Github Actions, we need to create a `.YML` f
 
 > .github/workflows/actions.yml
 
+## How Workflow was created in Github Actions?
 
+### Create YAML file
 
+### Use Cron Jobs
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## How Workflow was created in GithubActions?
-
-
+### Install Python
 
 ### Install Chromedriver and Chromium Browser
 
@@ -71,14 +57,12 @@ After a while, found this [block of codes](https://github.com/SeleniumHQ/seleniu
 https://github.com/lafirm/youtube-trending-videos-scraper/blob/31fe5633cabb462d79c3464174241303858cf2a2/.github/workflows/auto-scraper.yml#L33-L50
 
 
+### Execute python script
+
+#### Use env variables
 
 
-
-
-
-
-
-
+### commit and push changes
 
 
 
