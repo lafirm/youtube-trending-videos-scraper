@@ -53,7 +53,7 @@ def get_video_divs(driver):
     #companies can define their own tags in html, "ytd-video-renderer" is a tag developed by youtube
     driver.get(YOUTUBE_TRENDING_URL)
     # set implicit wait time
-    driver.implicitly_wait(10)  # seconds
+    driver.implicitly_wait(60)  # seconds
     video_div_tag = "ytd-video-renderer"
     video_divs = driver.find_elements(By.TAG_NAME, value=video_div_tag)
     return video_divs
