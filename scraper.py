@@ -109,8 +109,9 @@ def get_video_divs(driver):
         count += 1
         video_divs = driver.find_elements(By.TAG_NAME, value=video_div_tag)
         if count==10:
-            print('Completed 10 loops!')
+            print('Reached Limit!')
             break
+    print(f'Completed {count} loop(s)')
 
     return video_divs
 
