@@ -56,18 +56,17 @@ jobs:
       run: |
         python scraper.py
 
-    - name: commit files
+    # Add new files in data folder, commit along with other modified files, push
+    - name: Commit files
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add -A
-        git diff-index --quiet HEAD || (git commit -a -m "updated logs" --allow-empty)
-
-    - name: push changes
-      uses: ad-m/github-push-action@v0.6.0
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: main
+        git config --local user.name actions-user
+        git config --local user.email "actions@github.com"
+        git add data/*
+        git commit -am "GH Actions - YouTube Trending: $(date)"
+        git push origin main
+      env:
+        REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+        username: github-actions
 
 
 
